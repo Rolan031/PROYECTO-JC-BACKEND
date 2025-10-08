@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 const express = require('express');
 const app = express();
 const Usuario = require('./modelos/usuario');
+const usuarioRoutes = require('./routes/usuarioRoutes');
 //importando variables de entorno
 require('dotenv').config(); 
 const PORT = process.env.PORT;
@@ -20,11 +21,6 @@ const ConectarDB = async () =>{
 ConectarDB();
 app.use(express.json());
 
-app.listen(PORT, () => {
-    console.log('Escuchando servidor en el puerto', PORT);
-});
-
-
 //Datos simulados
 // Array de jugadores (Objetos) del torneo (será nuestra base de datos temporal)
 let jugadores = [
@@ -32,7 +28,8 @@ let jugadores = [
     { id: 2, nickname: "ShadowNinja", juego: "CS:GO", nivel: "Semi-Pro", pais: "México" },
     { id: 3, nickname: "FireMage", juego: "Valorant", nivel: "Amateur", pais: "Argentina" }
 ];
-
+//
+app.use('/api/usuario',usuarioRoutes)
 //1.-Endpoint raíz
 app.get('/', (req, res) => {
     res.json({
@@ -98,4 +95,8 @@ app.put('/update/:id', (req, res) => {
 app.delete('/delete/:id', (req, res) => {
     let id = req.params.id;
     res.json({ id: id });
+});
+
+app.listen(PORT, () => {
+    console.log('Escuchando servidor en el puerto', PORT);
 });

@@ -24,10 +24,10 @@ app.use((error,req,res,next)=>{
 
     }
 })
+
+app.get('/hola', (req,res)=>{
+   req.paramsñ
+});
 app.listen(PORT, ()=>{
     console.log('Servidor corriendo en el puerto', PORT)
 })
-
-app.get('/', (req,res)=>{
-   req.params
-});
