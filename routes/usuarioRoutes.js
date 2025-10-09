@@ -1,23 +1,20 @@
 const express = require('express');
 const router = express.Router();
+const {
+    crearUsuario,
+    getUsuarios,
+    getUsuario,
+    eliminarUsuario,
+    updateUsuario
+} = require('../controllers/usuarioController');
 //Obtener todos los usuarios
-router.get('/',(req,res) =>{
-    res.json('Ruta de usuarios');
-})
+router.get('/',getUsuarios)
 //Obtener un usuario 
-router.get('/:id',(req,res) =>{
-    res.json({mssg: 'Get a single user'})
-})
+router.get('/:id',getUsuario)
 //Crear un usuario
-router.post('/',(req,res)=>{
-    res.json({mssg: 'Crear un usuario'})
-})
+router.post('/',crearUsuario)
 //Eliminar un usuario
-router.delete('/:id',(req,res)=>{
-    res.json({mssg: 'Eliminar usuario'})
-})
+router.delete('/:id',eliminarUsuario)
 //Update un usuario
-router.put('/:id',(req,res)=>{
-    res.json({mssg: 'Update un usuario'})
-})
+router.put('/:id',updateUsuario)
 module.exports = router;
