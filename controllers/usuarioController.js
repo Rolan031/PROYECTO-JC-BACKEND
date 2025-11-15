@@ -1,66 +1,67 @@
-const Usuario = require('../modelos/usuario');
+const Game = require('../modelos/game');
 const mongoose = require('mongoose');
 
-//get all users
-const getUsuarios = async (req, res) =>{
-    const usuarios = await Usuario.find({}).sort({createdAt: -1});
-    res.status(200).json(usuarios)
+//get all games
+const getJuegos = async (req, res) =>{
+    const Juegos = await Game.find({}).sort({createdAt: -1});
+    res.status(200).json(Juegos)
 }
 
-//get user by id
-const getUsuario = async (req, res) =>{
+//get game by id
+const getGame = async (req, res) =>{
     const {id} = req.params
     if(!mongoose.Types.ObjectId.isValid(id)){
-        return res.status(400).json({error: 'usuario inexistente'})
+        return res.status(400).json({error: 'game inexistente'})
     }
-    const usuario = await Usuario.findById(id)
-    if(!usuario){
-        return res.status(404).json({error: 'Usuario no encontrado'})
+    const game = await Game.findById(id)
+    if(!game){
+        return res.status(404).json({error: 'Game no encontrado'})
     }
-    res.status(200).json(usuario)
+    res.status(200).json(game)
 }
 
-//create user
-const crearUsuario = async (req, res) => {
-    const { nombre, correo } = req.body
+//create game
+const crearGame = async (req, res) => {
+    const { titulo, genero, plataforma, añoLanzamiento, desarrollador, imagenPortada, descripcion, completado, progreso } = req.body
     //añadir registro a la BD
     try {
-        const usuario = await Usuario.create({ nombre, correo });
-        res.status(200).json(usuario);
+        const game = await Game.create({ titulo, genero, plataforma, añoLanzamiento, desarrollador, imagenPortada, descripcion, completado, progreso });
+        res.status(200).json(game);
     } catch (error) {
         res.status(400).json({ message: error.message });
     }
 }
 
-//delete user
-const eliminarUsuario = async(req,res) =>{
+//delete game
+const eliminarGame = async(req,res) =>{
     const {id} = req.params
     if(!mongoose.Types.ObjectId.isValid(id)){
-        return res.status(404).json({error: 'usuario inexistente'})
+        return res.status(404).json({error: 'game inexistente'})
     }
-    const usuario = await Usuario.findOneAndDelete({_id: id})
-    res.status(200).json(usuario)
+    const game = await Game.findOneAndDelete({_id: id})
+    res.status(200).json(game)
 }
 
-//update user
-const updateUsuario = async(req,res) =>{
+//update game
+const updateGame = async(req,res) =>{
     const {id} = req.params
      if(!mongoose.Types.ObjectId.isValid(id)){
-        return res.status(404).json({error: 'usuario inexistente'})
+        return res.status(404).json({error: 'game inexistente'})
     }
-    const usuario = await Usuario.findOneAndUpdate({_id: id},{
+    const game = await Game.findOneAndUpdate({_id: id},{
+        //Los puntos representan los campos q se llevan, aqui tres porque hay 3 campos
         ...req.body
     })
-    if(!usuario){
-        return res.status(404).json({error: 'Usuario no encontrado'})
+    if(!game){
+        return res.status(404).json({error: 'Game no encontrado'})
     }
-    res.status(200).json(usuario)
+    res.status(200).json(game)
 }
 
 module.exports = {
-    crearUsuario,
-    getUsuarios,
-    getUsuario,
-    eliminarUsuario,
-    updateUsuario
+    crearGame,
+    getJuegos,
+    getGame,
+    eliminarGame,
+    updateGame
 }

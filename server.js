@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const express = require('express');
+const cors = require('cors');
 const app = express();
 const usuarioRoutes = require('./routes/usuarioRoutes');
 //importando variables de entorno
@@ -18,6 +19,9 @@ const ConectarDB = async () =>{
   }
 };
 ConectarDB();
+//Endpoints
+
+app.use(cors());
 app.use(express.json());
 
 app.use('/api/usuario',usuarioRoutes)
@@ -33,7 +37,7 @@ app.get('/path/path2', (req, res) => {
 
 //4.-Endpoint pathvariable/:valor    ejemplo: pathvariable/1234   o   pathvariable/abcd
 app.get('/pathvariable/:valor', (req, res) => {
-    let {valor} = req.params;
+    let valor = req.params.valor;
     res.json({ pathvariable: valor });
 });
 
