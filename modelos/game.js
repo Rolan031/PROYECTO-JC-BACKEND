@@ -15,20 +15,20 @@ const gamesSchema = new Schema(
       values: ['Acción', 'RPG', 'Estrategia', 'Aventura', 'Deportes', 'Terror', 'Puzzle','Shooter'],
       message: '{VALUE} no es un género válido'  // Mensaje de error personalizado
     },
-    required: true
+   
   },
   
   plataforma: {
     type: String,
     enum: ['PC', 'PlayStation 5', 'PlayStation 4', 'Xbox Series X/S', 'Xbox One', 'Nintendo Switch', 'Movil', 'PlayStation 2', 'PlayStation 3', 'Xbox 360'],
-    required: true
+    
   },
   
   añoLanzamiento: {
     type: Number,
     min: [1970, 'El año debe ser 1970 o posterior'],
     max: [new Date().getFullYear() + 2, 'Solo puedes colocar juegos que ya hayan sido lanzados'],
-    required: true
+    
   },
   
   desarrollador: {
@@ -62,7 +62,7 @@ const gamesSchema = new Schema(
   },
   progreso:{
     type: Number,
-    required: true
+    
   },
   
   fechaCreacion: {

@@ -2,7 +2,8 @@ const mongoose = require('mongoose');
 const express = require('express');
 const cors = require('cors');
 const app = express();
-const usuarioRoutes = require('./routes/usuarioRoutes');
+const gameRoutes = require('./routes/gameRoutes');
+const reviewRoutes = require('./routes/reviewRoutes');
 //importando variables de entorno
 require('dotenv').config(); 
 const PORT = process.env.PORT;
@@ -24,16 +25,9 @@ ConectarDB();
 app.use(cors());
 app.use(express.json());
 
-app.use('/api/usuario',usuarioRoutes)
+app.use('/api/game',gameRoutes)
 //2.-Endpoint path
-app.get('/path', (req, res) => {
-    res.json({ hola: 'path' });
-});
-
-//3.-Endpoint path/path2
-app.get('/path/path2', (req, res) => {
-    res.json({ hola: 'path2' });
-});
+app.use('/api/review',reviewRoutes);
 
 //4.-Endpoint pathvariable/:valor    ejemplo: pathvariable/1234   o   pathvariable/abcd
 app.get('/pathvariable/:valor', (req, res) => {

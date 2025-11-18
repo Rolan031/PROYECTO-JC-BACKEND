@@ -6,7 +6,7 @@ const {
     getGame,
     eliminarGame,
     updateGame
-} = require('../controllers/usuarioController');
+} = require('../controllers/Gamecontroller');
 //Obtener todos los Juegos
 router.get('/',getJuegos)
 //Obtener un game 
