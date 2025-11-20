@@ -69,10 +69,6 @@ const gamesSchema = new Schema(
     type: Date,
     default: Date.now     // Se asigna automáticamente la fecha actual
   },
-  UltimaVezJugado:{
-    type: Date,
-    default: null
-  }
 }, {
   timestamps: true        // Agrega automáticamente createdAt y updatedAt
 });
